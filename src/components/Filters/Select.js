@@ -7,7 +7,8 @@ import 'react-select/dist/react-select.css'
 class SelectFilter extends Component {
     static propTypes = {
       //from connect
-        articles: PropTypes.array.isRequired
+        articles: PropTypes.array.isRequired,
+        selected: PropTypes.array
     };
 
     handleChange = selected => this.props.changeSelection(selected.map(option => option.value))
