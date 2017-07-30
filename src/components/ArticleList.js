@@ -54,7 +54,16 @@ ArticlesList.propTypes = {
     toggleOpenItem: PropTypes.func.isRequired
 }
 
-export default connect(
-    ({ articles }) => ({ articles }),
-    { deleteArticle }
-)(accordion(ArticlesList))
+function filterArticles(articles, filters) {
+  const {selected, dates: {from, to}} = filters;
+  return articles.filter(article => {
+    // const published = Date.parse(article.date);
+    //   return (!selected.length || selected.includes(article.id)) &&
+    //   (!from || !to || (published > from && published < to))
+    return (!selected.length || selected.includes(article.id))
+  })
+}
+
+export default connect(state => ({
+  articles:  filterArticles(state.articles, state.filters)
+}),{deleteArticle})(accordion(ArticlesList))
